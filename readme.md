@@ -1,4 +1,4 @@
-[Visit OpenPost](https://sample-xcelore.onrender.com/)
+[DEMO](https://sample-xcelore.onrender.com/)
 
 ## Table of Contents
 
