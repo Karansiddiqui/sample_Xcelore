@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 export default function CreateUser() {
   const [formData, setFormData] = useState({});
@@ -46,7 +46,7 @@ export default function CreateUser() {
   };
   return (
     <div className="max-w-lg mx-auto p-3 w-full mt-14">
-      <form className="flex flex-col gap-4 w-96 py-14" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-4 py-14" onSubmit={handleSubmit}>
         <div>
           <Label value="Your Username"></Label>
           <TextInput

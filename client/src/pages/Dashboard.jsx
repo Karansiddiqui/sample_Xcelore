@@ -4,6 +4,7 @@ import DashSidebar from "../components/DashSidebar";
 import DashProfile from "../components/DashProfile";
 import DashUsers from "../components/DashUsers";
 import DashCreateUser from "../components/DashCreateUser";
+import UpdateUser from "../components/UpdateUser";
 
 export default function Dashboard() {
   const location = useLocation();
@@ -26,6 +27,7 @@ export default function Dashboard() {
       {tab === "profile" && <DashProfile />}
       {tab === "users" && <DashUsers />}
       {tab === "createUser" && <DashCreateUser />}
+      {tab === "updateUser" && <UpdateUser />}
     </div>
   );
 }

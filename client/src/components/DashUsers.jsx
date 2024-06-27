@@ -2,21 +2,21 @@ import { Modal, Table, Button } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { FaCheck, FaTimes } from "react-icons/fa";
+import { FaCheck, FaTimes, FaPen } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function DashUsers() {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [, setFilteredUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  
-  useEffect(() => {
-    if(searchTerm == "") {
 
+  useEffect(() => {
+    if (searchTerm == "") {
       const fetchUsers = async () => {
         try {
           const res = await fetch(`/api/user/getusers`);
@@ -31,7 +31,7 @@ export default function DashUsers() {
           console.log(error.message);
         }
       };
-  
+
       if (currentUser.isAdmin) {
         fetchUsers();
       }
@@ -57,7 +57,7 @@ export default function DashUsers() {
         fetchUsers();
       }
     }
- }, [searchTerm, searchTerm]);
+  }, [searchTerm, searchTerm]);
 
   const handleShowMore = async () => {
     const startIndex = users.length;
@@ -99,13 +99,13 @@ export default function DashUsers() {
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 mt-20">
       <div className="lg:w-full mb-4">
         {/* <form> */}
-          <input
-            type="text"
-            placeholder="Search. . ."
-            className="w-full text-gray-900 border border-gray-300 rounded-lg text-base focus:border-blue-500 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-700 dark:focus:border-blue-700"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+        <input
+          type="text"
+          placeholder="Search. . ."
+          className="w-full text-gray-900 border border-gray-300 rounded-lg text-base focus:border-blue-500"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         {/* </form> */}
       </div>
 
@@ -117,16 +117,14 @@ export default function DashUsers() {
               <Table.HeadCell>User image</Table.HeadCell>
               <Table.HeadCell>Username</Table.HeadCell>
               <Table.HeadCell>Email</Table.HeadCell>
+              <Table.HeadCell>Update</Table.HeadCell>
               <Table.HeadCell>Admin</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
             <Table.Body>
               {users.length > 0 ? (
                 users.map((user) => (
-                  <Table.Row
-                    key={user._id}
-                    className="bg-white dark:border-gray-700 dark:bg-[rgb(14,16,19)]"
-                  >
+                  <Table.Row key={user._id} className="bg-white">
                     <Table.Cell>
                       {new Date(user.createdAt).toLocaleDateString()}
                     </Table.Cell>
@@ -139,6 +137,11 @@ export default function DashUsers() {
                     </Table.Cell>
                     <Table.Cell>{user.username}</Table.Cell>
                     <Table.Cell>{user.email}</Table.Cell>
+                    <Link to={`/dashboard?tab=updateUser&userID=${user._id}`} >
+                      <Table.Cell className=" cursor-pointer">
+                        <FaPen />
+                      </Table.Cell>
+                    </Link>
                     <Table.Cell>
                       {user.isAdmin ? (
                         <FaCheck className="text-green-500" />
@@ -160,7 +163,7 @@ export default function DashUsers() {
                       </Table.Cell>
                     ) : (
                       <Table.Cell>
-                        <span className="font-medium text-gray-400 dark:text-gray-700 hover:underline">
+                        <span className="font-medium text-gray-400 hover:underline">
                           Delete
                         </span>
                       </Table.Cell>
@@ -176,7 +179,7 @@ export default function DashUsers() {
               )}
             </Table.Body>
           </Table>
-          {(showMore && searchTerm == "") && (
+          {showMore && searchTerm == "" && (
             <button
               onClick={handleShowMore}
               className="w-full text-teal-500 self-center text-sm py-7"
@@ -196,8 +199,8 @@ export default function DashUsers() {
         <Modal.Header />
         <Modal.Body>
           <div className="text-center">
-            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
-            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 ">
               Are you sure you want to delete this user?
             </h3>
             <div className="flex justify-center gap-4">
