@@ -30,6 +30,9 @@ To start the development server, use:
 
 ### `npm run dev`
 
+## Admin: Email: admin@gmail.com, Password: admin
+## User: User1@gmail.com, Password: 1234
+
 This will launch the application, accessible at `http://localhost:5173`.
 
 ## Functionality
